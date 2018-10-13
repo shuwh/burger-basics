@@ -1,16 +1,17 @@
-.CheckoutSummary {
+.ContactData {
     width: 80%;
-    margin: auto;
     text-align: center;
+    margin: 20px auto;
 }
 
-.Burger {
+.Input {
     width: 100%;
-    /* margin: auto; */
+    display: block;
+    text-align: left;
 }
 
 @media (min-width: 600px) {
-    .CheckoutSummary {
+    .ContactData {
         width: 500px;
     }
 }
