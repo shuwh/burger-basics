@@ -2,11 +2,21 @@ import React from 'react';
 
 import classes from './Order.css';
 
-const Order = (props) => (
-    <div className={classes.Order}>
-        <p>Ingredients: Salad (1)</p>
-        <p>Price: <strong>USD: 5.45</strong></p>
-    </div>
-);
+const Order = (props) => {
+    const ingredients = [];
+    for (let ingredient in props.ingredients) {
+        ingredients.push(
+            <span
+                key={ingredient}
+            >{ingredient} ({props.ingredients[ingredient]})</span>
+        )
+    }
+    return (
+        <div className={classes.Order}>
+            <p>Ingredients: {ingredients}</p>
+            <p>Price: <strong>USD {Number.parseFloat( props.price ).toFixed(2)}</strong></p>
+        </div>
+    )
+};
 
 export default Order;

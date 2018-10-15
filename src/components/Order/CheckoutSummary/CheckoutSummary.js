@@ -12,7 +12,7 @@ const checkoutSummary = (props) => {
             <div className={classes.Burger}>
                 <Burger ingredients={props.ingredients}/>
             </div>
-            <h2>Total Price is: <strong>{props.totalPrice}</strong></h2>
+            <p>Total Price: <strong>USD {props.totalPrice}</strong></p>
             <Button 
                 btnType='Danger' 
                 clicked={props.checkoutCancelled}
