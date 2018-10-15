@@ -8,7 +8,7 @@ import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
     state = {
-        orderFrom: {
+        orderForm: {
             name: {
                 elementType: 'input',
                 elementConfig: {
@@ -63,13 +63,32 @@ class ContactData extends Component {
         loading: false
     }
 
+    componentDidMount = () => {
+        const orderForm = {
+            ...this.state.orderForm
+        };
+        const deliveryMethod = {
+            ...orderForm.deliveryMethod
+        };
+        deliveryMethod.value = this.state.orderForm.deliveryMethod.elementConfig.options[0].value;
+        orderForm.deliveryMethod = deliveryMethod;
+        this.setState({
+            orderForm: orderForm,
+        })
+    };
+
     orderHandler = (event) => {
         event.preventDefault();
-        // alert('You Continue!');
         this.setState({ loading: true });
+        const orderData = {};
+        for (let key in this.state.orderForm) {
+            orderData[key] = this.state.orderForm[key].value;
+        };
+        console.log(orderData);
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
+            orderData: orderData,
         }
         axios.post('orders.json', order)
             .then(response => {
@@ -85,29 +104,43 @@ class ContactData extends Component {
             });
     };
 
+    inputChangedHandler = (event, inputIndentifier) => {
+        const orderForm = {
+            ...this.state.orderForm
+        };
+        const orderFormElem = {
+            ...orderForm[inputIndentifier]
+        };
+        orderFormElem.value = event.target.value;
+        orderForm[inputIndentifier] = orderFormElem;
+        this.setState({
+            orderForm: orderForm,
+        });
+    };
+
 
     render() {
         // console.log(this.props);
         const formElementArray = [];
-        for (let key in this.state.orderFrom) {
+        for (let key in this.state.orderForm) {
             formElementArray.push({
                 key: key,
-                config: this.state.orderFrom[key],
+                config: this.state.orderForm[key],
             })
         }
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElementArray.map(formElement => (
-                    <Input 
+                    <Input
                         key={formElement.key}
-                        elementType={formElement.config.elementType} 
+                        elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.key)}
                     />
                 ))}
                 <Button
                     btnType='Success'
-                    clicked={this.orderHandler}
                 >ORDER</Button>
             </form>
         );
