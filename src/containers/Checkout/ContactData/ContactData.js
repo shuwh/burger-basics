@@ -92,7 +92,6 @@ class ContactData extends Component {
             },
         },
         formIsValid: false,
-        loading: false
     }
 
     componentDidMount = () => {
@@ -192,7 +191,7 @@ class ContactData extends Component {
                 >ORDER</Button>
             </form>
         );
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return (
@@ -206,9 +205,9 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        loading: state.loading,
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading,
     };
 };
 
