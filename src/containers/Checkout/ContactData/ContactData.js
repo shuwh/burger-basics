@@ -7,7 +7,7 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import {purchaseBurgerStart} from '../../../store/actions/index';
+import {purchaseBurger} from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -208,12 +208,13 @@ const mapStateToProps = state => {
     return {
         ings: state.ingredients,
         price: state.totalPrice,
+        loading: state.loading,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPurchaseBurgerStart: (orderData) => dispatch(purchaseBurgerStart(orderData)),
+        onPurchaseBurgerStart: (orderData) => dispatch(purchaseBurger(orderData)),
     };
 };
 
