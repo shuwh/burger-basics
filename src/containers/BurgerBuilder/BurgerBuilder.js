@@ -17,19 +17,10 @@ class BurgerBuilder extends Component {
     state = {
         purchasable: false,
         purchasing: false,
-        loading: false,
-        error: null,
     }
 
     componentDidMount = () => {
-        // axios.get('/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data })
-        //     })
-        //     .catch(error => {
-        //         this.setState({error: error});
-        //         console.log(error);
-        //     })
+        this.props.onIngredientInited();
     };
 
 
@@ -71,7 +62,7 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        let burger = this.state.error ? <p style={{ textAlign: 'center' }}>{this.state.error.message}</p> : <Spinner />;
+        let burger = this.props.error ? <p style={{ textAlign: 'center' }}>The ingredients cannot be loaded!</p> : <Spinner />;
         let orderSummary = null;
         if (this.props.ings) {
             let disabledInfo = { ...this.props.ings };
@@ -96,9 +87,6 @@ class BurgerBuilder extends Component {
                 purchaseContinued={this.purchaseContinueHandler}
                 ingredients={this.props.ings} />;
         };
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} clicked={this.purchaseCancelHandler}>
@@ -114,6 +102,7 @@ const mapStateToProps = (state) => {
     return {
         ings: state.ingredients,
         price: state.totalPrice,
+        error: state.error,
     };
 };
 
@@ -121,9 +110,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (igName) => dispatch(bugerBuilderActions.addIngredient(igName)),
         onIngredientRemoved: (igName) => dispatch(bugerBuilderActions.removeIngredient(igName)),
+        onIngredientInited: () => dispatch(bugerBuilderActions.initIngredients())
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
