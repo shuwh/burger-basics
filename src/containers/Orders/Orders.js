@@ -28,7 +28,7 @@ class Orders extends Component {
                 orders = <p style={{textAlign: 'center'}}>There is <strong>No</strong> orders right now!</p>
             }
         }
-        console.log('After fetch data:', this.props.orders);
+        // console.log('After fetch data:', this.props.orders);
         return orders;
     }
 }
