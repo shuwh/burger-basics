@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Redirect}  from 'react-router-dom';
+
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from './Auth.css';
@@ -117,8 +119,11 @@ class Auth extends Component {
             form = <Spinner />;
         }
         const errorMessage = this.props.error ? <p style={{color: 'red'}}>{this.props.error.message}</p> : null;
+        const authRedirect = this.props.isAuthenticated ? <Redirect to="/"/> : null;
+
         return (
             <div className={classes.Auth}>
+                {authRedirect}
                 <h2>{this.state.isSignup ? 'SIGNUP' : 'SIGNIN'}</h2>
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
@@ -138,6 +143,7 @@ const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
+        isAuthenticated: state.auth.idToken !== null,
     };
 };
 
