@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
 import asynComponent from './hoc/asynComponent/asynComponent';
 
@@ -19,7 +18,7 @@ class App extends Component {
   };
 
   render() {
-    console.log(import('./containers/Auth/Auth'));
+    // console.log(import('./containers/Auth/Auth'));
     let routes = (
       <Switch>
         <Route path='/auth' component={asynAuth} />
