@@ -89,26 +89,30 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' },
                     ]
                 },
-                value: '',
+                value: 'fastest',
+                validation: {
+
+                },
                 valid: true,
+                touched: true,
             },
         },
         formIsValid: false,
     }
 
-    componentDidMount = () => {
-        const orderForm = {
-            ...this.state.orderForm
-        };
-        const deliveryMethod = {
-            ...orderForm.deliveryMethod
-        };
-        deliveryMethod.value = this.state.orderForm.deliveryMethod.elementConfig.options[0].value;
-        orderForm.deliveryMethod = deliveryMethod;
-        this.setState({
-            orderForm: orderForm,
-        })
-    };
+    // componentDidMount = () => {
+    //     const orderForm = {
+    //         ...this.state.orderForm
+    //     };
+    //     const deliveryMethod = {
+    //         ...orderForm.deliveryMethod
+    //     };
+    //     deliveryMethod.value = this.state.orderForm.deliveryMethod.elementConfig.options[0].value;
+    //     orderForm.deliveryMethod = deliveryMethod;
+    //     this.setState({
+    //         orderForm: orderForm,
+    //     })
+    // };
 
     orderHandler = (event) => {
         event.preventDefault();
