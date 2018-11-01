@@ -8,6 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import { purchaseBurger } from '../../../store/actions/index';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class ContactData extends Component {
     state = {
@@ -131,46 +132,30 @@ class ContactData extends Component {
         this.props.onPurchaseBurgerStart(order, this.props.token);
     };
 
-    checkValidity = (value, rules) => {
-        let isValid = true;
-        if (rules.required) {
-            isValid = isValid && (value.trim() !== '');
-        }
-        if (rules.minLength) {
-            isValid = isValid && (value.length >= rules.minLength);
-        }
-        if (rules.maxLength) {
-            isValid = isValid && (value.length <= rules.maxLength);
-        }
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-        return isValid;
-    }
-
     inputChangedHandler = (event, inputIndentifier) => {
-        const orderForm = {
-            ...this.state.orderForm
-        };
-        const orderFormElem = {
-            ...orderForm[inputIndentifier]
-        };
-        orderFormElem.value = event.target.value;
-        orderFormElem.valid = this.checkValidity(orderFormElem.value, orderFormElem.validation);
-        orderFormElem.touched = true;
-        orderForm[inputIndentifier] = orderFormElem;
+        // const orderForm = {
+        //     ...this.state.orderForm
+        // };
+        // const orderFormElem = {
+        //     ...orderForm[inputIndentifier]
+        // };
+        // orderFormElem.value = event.target.value;
+        // orderFormElem.valid = checkValidity(orderFormElem.value, orderFormElem.validation);
+        // orderFormElem.touched = true;
+        // orderForm[inputIndentifier] = orderFormElem;
+
+        const orderForm = updateObject(this.state.orderForm, {
+            [inputIndentifier]: updateObject(this.state.orderForm[inputIndentifier], {
+                value: event.target.value,
+                valid: checkValidity(event.target.value, this.state.orderForm[inputIndentifier].validation),
+                touched: true,
+            })
+        })
 
         let formIsValid = true;
         for (let key in orderForm) {
             formIsValid = orderForm[key].valid && formIsValid;
         }
-        // console.log(formIsValid);
 
         this.setState({
             orderForm: orderForm,

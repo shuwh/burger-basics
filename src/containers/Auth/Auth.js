@@ -7,7 +7,7 @@ import Button from '../../components/UI/Button/Button';
 import classes from './Auth.css';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import {updateObject} from '../../shared/utility';
+import {updateObject, checkValidity} from '../../shared/utility';
 
 class Auth extends Component {
     state = {
@@ -51,45 +51,11 @@ class Auth extends Component {
     };
 
 
-    checkValidity = (value, rules) => {
-        let isValid = true;
-        if (rules.required) {
-            isValid = isValid && (value.trim() !== '');
-        }
-        if (rules.minLength) {
-            isValid = isValid && (value.length >= rules.minLength);
-        }
-        if (rules.maxLength) {
-            isValid = isValid && (value.length <= rules.maxLength);
-        }
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-        return isValid;
-    }
     inputChangedHandler = (event, inputIdentifier) => {
-        // const updatedControl = {
-        //     ...this.state.controls[inputIdentifier],
-        // }
-        // updatedControl.value = event.target.value;
-        // updatedControl.valid = this.checkValidity(updatedControl.value, updatedControl.validation);
-        // updatedControl.touched = true;
-
-        // const updatedControls = {
-        //     ...this.state.controls,
-        // };
-        // updatedControls[inputIdentifier] = updatedControl;
-
         const updatedControls = updateObject(this.state.controls, {
             [inputIdentifier]: updateObject(this.state.controls[inputIdentifier], {
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[inputIdentifier].validation),
+                valid: checkValidity(event.target.value, this.state.controls[inputIdentifier].validation),
                 touched: true,
             }),
         });
