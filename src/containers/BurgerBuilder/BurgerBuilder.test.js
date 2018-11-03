@@ -27,14 +27,4 @@ describe('<BurgerBuilder />', () => {
         wrapper.setProps({ings: {salad: 1}});
         expect(wrapper.find(Burger)).toHaveLength(1);
     })
-
-    it('should show Modal when puchasing state is on', () => {
-        expect(wrapper.find(Modal)).toHaveLength(1);
-    })
-
-    it('should show OrderSummary when puchasing is on and ingredients are provided', () => {
-        wrapper.setProps({ings: {salad: 1}}).setState({purchasing: false});
-        expect(wrapper.find(OrderSummary)).toHaveLength(1);
-    })
-    
 })
