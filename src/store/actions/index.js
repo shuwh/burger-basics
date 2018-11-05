@@ -9,6 +9,7 @@ export {
     purchaseBurger,
     purchaseInit,
     fetchOrders,
+    deleteOrder,
 } from './order';
 
 export {

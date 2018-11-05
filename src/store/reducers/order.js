@@ -46,6 +46,19 @@ const fetchOrdersFail = (state, action) => {
     return updateObject(state, { loading: false });
 }
 
+const deleteOrderSuccess = (state, action) => {
+    const newOrders = [];
+    for (let i in state.orders) {
+       if (state.orders[i].id !== action.orderId) {
+           newOrders.push(state.orders[i]);
+       }
+    }
+    return updateObject(state, {orders: newOrders});
+}
+
+const deleteOrderFail = (state, action) => {
+    return state;
+}
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
@@ -56,6 +69,8 @@ const reducer = (state = initState, action) => {
         case actionTypes.FETCH_ORDERS_START: return fetchOrdersStart(state, action);
         case actionTypes.FETCH_ORDERS_SUCCESS: return fetchOrdersSuccess(state, action);
         case actionTypes.FETCH_ORDERS_FAIL: return fetchOrdersFail(state, action);
+        case actionTypes.DELETE_ORDER_SUCCESS: return deleteOrderSuccess(state, action);
+        case actionTypes.DELETE_ORDER_FAIL: return deleteOrderFail(state, action);
         default: return state;
     }
 }

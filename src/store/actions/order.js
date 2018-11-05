@@ -82,3 +82,33 @@ export const fetchOrders = (token, userId) => {
             })
     }
 };
+
+
+export const deleteOrderSuccess = (orderId) => {
+    return {
+        type: actionTypes.DELETE_ORDER_SUCCESS,
+        orderId: orderId,
+    }
+};
+
+export const deleteOrderFail = (error) => {
+    return {
+        type: actionTypes.DELETE_ORDER_FAIL,
+        error: error,
+    }
+};
+
+export const deleteOrder = (token, orderId) => {
+    return dispatch => {
+        const queryParams = '?auth=' + token;
+        axios.delete('/orders/' + orderId + '.json' + queryParams)
+            .then(response => {
+                // console.log(response.data);
+                dispatch(deleteOrderSuccess(orderId));
+            })
+            .catch(err => {
+                // console.log(err);
+                dispatch(deleteOrderFail(err));
+            })
+    }
+};
