@@ -7,3 +7,21 @@
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.5);   
 }
+
+.BackdropEnter {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.BackdropEnterActive {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.BackdropExit {
+
+}
+
+.BackdropExitActive {
+
+}

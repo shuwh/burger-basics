@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
 import classes from './Modal.css';
-
-// const modal = (props) => {
-//     const style = props.show ? [classes.Modal, classes.Show] : [classes.Modal];
-//     return (
-//         <Aux>
-//             <Backdrop show={props.show} clicked={props.clicked}/>
-//             <div
-//                 className={style.join(' ')}>
-//                 {props.children}
-//             </div>
-//         </Aux>
-//     )
-// }
 
 
 class Modal extends Component {
@@ -25,16 +13,38 @@ class Modal extends Component {
         return this.props.show !== nextProps.show || this.props.children !== nextProps.children;
     };
 
-
+    // render() {
+    //     const style = this.props.show ? [classes.Modal, classes.Show] : [classes.Modal];
+    //     return (
+    //         <Aux>
+    //             <Backdrop show={this.props.show} clicked={this.props.clicked} />
+    //             <div
+    //                 className={style.join(' ')}>
+    //                 {this.props.children}
+    //             </div>
+    //         </Aux>
+    //     );
+    // }
     render() {
-        const style = this.props.show ? [classes.Modal, classes.Show] : [classes.Modal];
         return (
             <Aux>
                 <Backdrop show={this.props.show} clicked={this.props.clicked} />
-                <div
-                    className={style.join(' ')}>
-                    {this.props.children}
-                </div>
+                <CSSTransition
+                    mountOnEnter
+                    unmountOnExit
+                    in={this.props.show}
+                    classNames={{
+                        enter: classes.ModalEnter,
+                        enterActive: classes.ModalEnterActive,
+                        exit: classes.ModalExit,
+                        exitActive: classes.ModalExitActive,
+                    }}
+                    timeout={300}
+                >
+                    <div className={classes.Modal}>
+                        {this.props.children}
+                    </div>
+                </CSSTransition>
             </Aux>
         );
     }

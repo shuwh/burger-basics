@@ -10,13 +10,33 @@
     top: 30%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
-    transform: translateY(-100vh);
-    opacity: 0;
+    /* transform: translateY(-100vh);
+    opacity: 0; */
 }
 
 .Show {
     transform: translateY(0);
     opacity: 1;
+}
+
+.ModalEnter {
+    opacity: 0.01;
+    transform: translateY(-100vh);
+}
+
+.ModalEnterActive {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ModalExit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ModalExitActive {
+    opacity: 0.01;
+    transform: translateY(-100vh);
 }
 
 @media (min-width: 600px) {
