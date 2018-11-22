@@ -26,3 +26,21 @@
         height: 600px;
     }
 }
+
+.IngredientEnter {
+    opacity: 0;
+}
+
+.IngredientEnterActive {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.IngredientExit {
+    opacity: 1;
+}
+
+.IngredientExitActive {
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+}

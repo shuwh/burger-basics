@@ -26,6 +26,11 @@
 
 .ModalEnterActive {
     opacity: 1;
+    transform: translateY(10%);
+}
+
+.ModalEnterDone {
+    opacity: 1;
     transform: translateY(0);
 }
 

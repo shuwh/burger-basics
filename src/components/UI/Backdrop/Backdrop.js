@@ -13,7 +13,7 @@ const backdrop = (props) => {
             timeout={100}
             classNames={{
                 enter: classes.BackdropEnter,
-                enterActive: classes.BackdropEnterActive,
+                // enterActive: classes.BackdropEnterActive,
             }}
         >
             <div className={classes.Backdrop} onClick={props.clicked}></div>

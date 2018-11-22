@@ -9,19 +9,17 @@
 }
 
 .BackdropEnter {
-    opacity: 0;
     transform: scale(0);
 }
 
 .BackdropEnterActive {
-    opacity: 1;
     transform: scale(1);
 }
 
 .BackdropExit {
-
+    transform: scale(1);
 }
 
 .BackdropExitActive {
-
+    transform: scale(0);
 }

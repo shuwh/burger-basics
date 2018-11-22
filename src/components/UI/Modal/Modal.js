@@ -36,8 +36,10 @@ class Modal extends Component {
                     classNames={{
                         enter: classes.ModalEnter,
                         enterActive: classes.ModalEnterActive,
+                        enterDone: classes.ModalEnterDone,
                         exit: classes.ModalExit,
                         exitActive: classes.ModalExitActive,
+                        exitDone: classes.ModalExitDone,
                     }}
                     timeout={300}
                 >
